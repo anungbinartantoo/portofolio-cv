@@ -18,8 +18,10 @@ animation: {
 'slide-in-left': 'slide-in-left 0.7s ease-out forwards',
 'slide-in-right': 'slide-in-right 0.7s ease-out forwards',
 'fade-in': 'fade-in 0.5s ease-out forwards',
+	}
+	}
+  },
+  darkMode: 'class',
+  plugins: [],
 }
-},
-},
-plugins: [],
-}
+
