@@ -1,28 +1,32 @@
 <template>
   <section id="profil" class="relative min-h-screen flex flex-col justify-center items-center bg-black overflow-hidden">
-    <!-- Gradient background teal -->
-    <div class="absolute inset-0 z-0 bg-gradient-to-tr from-[#7AC6B7]/20 via-black to-[#7AC6B7]/20 opacity-70"></div>
+    
+    <div class="absolute inset-0 z-0 bg-black"></div>
     <!-- Hero Content -->
     <div class="relative flex flex-col justify-center items-center z-10 pt-4 md:pt-10 pb-12 w-full hero-content">
-      <!-- Typing animation for name -->
-      <h1
-        ref="typedName"
-        class="text-[12vw] md:text-[7vw] font-extrabold text-white text-center leading-none tracking-tight uppercase drop-shadow-lg mb-4 whitespace-pre-line"
-      >
-        <span>{{ typedText }}</span>
-        <span
-          v-if="showCursor && typingIndex < fullText.length"
-          class="typing-cursor"
-        ></span>
-      </h1>
-      <!-- Foto profil -->
-      <div class="relative flex justify-center mb-6">
-        <img
-          src="https://avatars.githubusercontent.com/u/55883148?v=4"
-          alt="Foto Profil"
-          class="w-40 h-40 md:w-56 md:h-56 object-cover rounded-2xl shadow-2xl border-4 border-gray-800 transition duration-500 filter grayscale hover:grayscale-0"
-        />
-      </div>
+      <transition name="name-fly-up">
+        <h1
+          v-if="showHero"
+          ref="typedName"
+          class="text-[12vw] md:text-[7vw] font-extrabold text-white text-center leading-none tracking-tight uppercase drop-shadow-lg mb-4 whitespace-pre-line"
+        >
+          <span>{{ typedText }}</span>
+          <span
+            v-if="showCursor && typingIndex < fullText.length"
+            class="typing-cursor"
+          ></span>
+        </h1>
+      </transition>
+      <!-- Foto profil efek popup -->
+      <transition name="photo-popup">
+        <div v-if="showHero" class="relative flex justify-center mb-6">
+          <img
+            src="https://avatars.githubusercontent.com/u/55883148?v=4"
+            alt="Foto Profil"
+            class="w-40 h-40 md:w-56 md:h-56 object-cover rounded-2xl border-4 border-gray-800 transition duration-500 filter grayscale hover:grayscale-0"
+          />
+        </div>
+      </transition>
       <!-- Animate on view for WEB DEVELOPER -->
       <transition name="fade-slide">
         <h2
@@ -72,7 +76,9 @@ export default {
       typedText: "",
       typingIndex: 0,
       showWebDev: false,
+      showHero: true,
       observer: null,
+      heroObserver: null,
       showCursor: true,
       cursorInterval: null,
     };
@@ -81,27 +87,37 @@ export default {
     this.typeWriter();
     // Blinking cursor
     this.cursorInterval = setInterval(() => {
-      // Cursor hanya berkedip saat mengetik
       if (this.typingIndex < this.fullText.length) {
         this.showCursor = !this.showCursor;
       } else {
         this.showCursor = false;
       }
     }, 500);
-    // Intersection Observer
+    // Observer untuk web developer
     this.observer = new IntersectionObserver(
       ([entry]) => {
         this.showWebDev = entry.isIntersecting;
       },
       { threshold: 0.5 }
     );
+    // Observer untuk nama dan foto
+    this.heroObserver = new IntersectionObserver(
+      ([entry]) => {
+        this.showHero = entry.isIntersecting;
+      },
+      { threshold: 0.3 }
+    );
     this.$nextTick(() => {
-      const el = this.$el.querySelector('.hero-content');
-      if (el) this.observer.observe(el);
+      const heroContent = this.$el.querySelector('.hero-content');
+      if (heroContent) {
+        this.observer.observe(heroContent);
+        this.heroObserver.observe(heroContent);
+      }
     });
   },
   beforeUnmount() {
     if (this.observer) this.observer.disconnect();
+    if (this.heroObserver) this.heroObserver.disconnect();
     if (this.cursorInterval) clearInterval(this.cursorInterval);
   },
   methods: {
@@ -117,7 +133,6 @@ export default {
 </script>
 
 <style scoped>
-/* Responsive font size for hero */
 @media (max-width: 640px) {
   h1 {
     font-size: 2.2rem !important;
@@ -125,6 +140,38 @@ export default {
   h2 {
     font-size: 1.1rem !important;
   }
+}
+/* Nama keluar dari foto ke atas */
+.name-fly-up-enter-active,
+.name-fly-up-leave-active {
+  transition:
+    opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.name-fly-up-enter-from,
+.name-fly-up-leave-to {
+  opacity: 0;
+  transform: translateY(80px) scale(0.96);
+}
+.name-fly-up-enter-to,
+.name-fly-up-leave-from {
+  opacity: 1;
+  transform: translateY(-20px) scale(1);
+}
+/* Foto profil efek popup */
+.photo-popup-enter-active,
+.photo-popup-leave-active {
+  transition: opacity 0.5s, transform 0.5s;
+}
+.photo-popup-enter-from,
+.photo-popup-leave-to {
+  opacity: 0;
+  transform: scale(0.7);
+}
+.photo-popup-enter-to,
+.photo-popup-leave-from {
+  opacity: 1;
+  transform: scale(1);
 }
 /* Fade-slide transition for h2 */
 .fade-slide-enter-active,
