@@ -9,7 +9,7 @@
           class="w-6 h-6 transition-transform duration-300 group-hover:rotate-[30deg]"
         />
         <span class="text-xs md:text-sm font-bold text-white tracking-wide uppercase">
-          Let's Coding with Anung
+          Let's Coding
         </span>
       </div>
       <!-- Hamburger & Close Button -->
