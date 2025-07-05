@@ -1,15 +1,18 @@
-
 <template>
   <section id="profil" class="relative min-h-screen flex flex-col justify-center items-center bg-black overflow-hidden">
-
-    <div class="absolute inset-0 z-0 bg-black"></div>
+    <!-- Background animasi antariksa -->
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <!-- Bintang-bintang -->
+      <div v-for="n in 40" :key="n" :style="starStyle(n)" class="star"></div>
+      <!-- Planet dan roket dihapus -->
+    </div>
     <!-- Hero Content -->
     <div class="relative flex flex-col justify-center items-center z-10 pt-4 md:pt-10 pb-12 w-full hero-content">
       <transition name="name-fly-up">
         <h1
           v-if="showHero"
           ref="typedName"
-          class="text-[12vw] md:text-[7vw] font-extrabold text-white text-center leading-none tracking-tight uppercase drop-shadow-lg mb-4 whitespace-pre-line"
+          class="text-[9vw] md:text-[4.5vw] font-extrabold text-white text-center leading-none tracking-tight uppercase drop-shadow-lg mb-4 whitespace-pre-line"
         >
           <span>{{ typedText }}</span>
           <span
@@ -24,7 +27,7 @@
           <img
             src="https://avatars.githubusercontent.com/u/55883148?v=4"
             alt="Foto Profil"
-            class="w-40 h-40 md:w-56 md:h-56 object-cover rounded-2xl border-4 border-gray-800 transition duration-500 filter grayscale hover:grayscale-0"
+            class="w-56 h-56 md:w-80 md:h-80 object-cover rounded-2xl border-4 border-gray-800 transition duration-500 filter grayscale hover:grayscale-0"
           />
         </div>
       </transition>
@@ -32,9 +35,9 @@
       <transition name="fade-slide">
         <h2
           v-if="showWebDev"
-          class="text-[5vw] md:text-[2.5vw] font-extrabold text-white text-center tracking-tight uppercase drop-shadow mb-2"
+          class="relative text-[5vw] md:text-[2.5vw] font-extrabold text-white text-center tracking-tight uppercase drop-shadow mb-2"
         >
-          WEB DEVELOPER
+          <span class="webdev-glow">WEB DEVELOPER</span>
         </h2>
       </transition>
     </div>
@@ -129,6 +132,20 @@ export default {
         setTimeout(this.typeWriter, 90);
       }
     },
+    // Membuat posisi random untuk bintang
+    starStyle() {
+      const top = Math.random() * 100;
+      const left = Math.random() * 100;
+      const size = Math.random() * 2 + 1;
+      const duration = 3 + Math.random() * 5;
+      return {
+        top: `${top}%`,
+        left: `${left}%`,
+        width: `${size}px`,
+        height: `${size}px`,
+        animationDuration: `${duration}s`
+      };
+    }
   },
 };
 </script>
@@ -142,6 +159,7 @@ export default {
     font-size: 1.1rem !important;
   }
 }
+
 /* Nama keluar dari foto ke atas */
 .name-fly-up-enter-active,
 .name-fly-up-leave-active {
@@ -159,6 +177,7 @@ export default {
   opacity: 1;
   transform: translateY(-20px) scale(1);
 }
+
 /* Foto profil efek popup */
 .photo-popup-enter-active,
 .photo-popup-leave-active {
@@ -174,6 +193,7 @@ export default {
   opacity: 1;
   transform: scale(1);
 }
+
 /* Fade-slide transition for h2 */
 .fade-slide-enter-active,
 .fade-slide-leave-active {
@@ -189,6 +209,7 @@ export default {
   opacity: 1;
   transform: translateY(0);
 }
+
 .location-flip {
   animation: location-flip 2.5s cubic-bezier(.4,0,.2,1) infinite;
   transform-origin: 50% 80%;
@@ -199,6 +220,7 @@ export default {
   40% { transform: scaleX(1);}
   100% { transform: scaleX(1);}
 }
+
 .typing-cursor {
   display: inline-block;
   height: 1em;
@@ -214,4 +236,52 @@ export default {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
 }
+
+.webdev-glow {
+  position: relative;
+  z-index: 1;
+}
+.webdev-glow::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 110%;
+  height: 60%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, #22d3ee88 0%, #22d3ee33 70%, transparent 100%);
+  filter: blur(10px);
+  opacity: 0.5;
+  z-index: -1;
+  animation: webdev-glow-anim 2.5s ease-in-out infinite alternate;
+}
+@keyframes webdev-glow-anim {
+  0% { opacity: 0.4; filter: blur(8px); transform: translate(-50%, -50%) scale(1);}
+  100% { opacity: 0.6; filter: blur(14px); transform: translate(-50%, -50%) scale(1.04);}
+}
+
+/* Bintang */
+.star {
+  position: absolute;
+  background: radial-gradient(circle, #fff 70%, #a7f3f3 100%);
+  border-radius: 50%;
+  opacity: 0.92;
+  box-shadow:
+    0 0 6px 2px #67e8f9cc,
+    0 0 1.5px 0.5px #fff;
+  animation: twinkle 3.5s infinite alternate, star-move 18s linear infinite;
+  pointer-events: none;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.92; filter: blur(0.5px);}
+  50% { opacity: 0.55; filter: blur(1.5px);}
+}
+/* Animasi gerak halus bintang */
+@keyframes star-move {
+  0% { transform: translateY(0) scale(1);}
+  100% { transform: translateY(-10px) scale(1.04);}
+}
+
+/* Hapus style planet dan roket jika tidak digunakan */
 </style>

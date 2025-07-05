@@ -1,6 +1,13 @@
 <template>
-  <section id="about" class="py-24 bg-black min-h-screen">
-    <div class="max-w-6xl mx-auto px-2 md:px-8">
+  <section id="about" class="py-24 bg-black min-h-screen overflow-hidden relative">
+    <!-- Background antariksa: bintang dan meteor -->
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <!-- Bintang-bintang -->
+      <div v-for="n in 36" :key="n" :style="starStyle(n)" class="star"></div>
+      <!-- Meteor animasi -->
+      <div v-for="m in 2" :key="'meteor'+m" :style="meteorStyle(m)" class="meteor"></div>
+    </div>
+    <div class="max-w-6xl mx-auto px-2 md:px-8 relative z-10">
       <div class="w-full">
         <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-8 text-left">About me</h1>
         <p
@@ -153,6 +160,33 @@ onMounted(() => {
   });
 });
 
+// Bintang style acak
+function starStyle() {
+  const top = Math.random() * 100;
+  const left = Math.random() * 100;
+  const size = Math.random() * 2 + 1;
+  const duration = 3 + Math.random() * 5;
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    width: `${size}px`,
+    height: `${size}px`,
+    animationDuration: `${duration}s`
+  };
+}
+
+// Meteor style acak
+function meteorStyle() {
+  const top = 10 + Math.random() * 60;
+  const left = -20 - Math.random() * 30;
+  const delay = Math.random() * 8;
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    animationDelay: `${delay}s`
+  };
+}
+
 const experiences = [
   {
     title: 'Flutter Bootcamp at Jabar Coding Camp',
@@ -187,7 +221,60 @@ const experiences = [
 ]
 </script>
 
-<style>
+<style scoped>
+/* Bintang sama seperti Hero */
+.star {
+  position: absolute;
+  background: radial-gradient(circle, #fff 70%, #a7f3f3 100%);
+  border-radius: 50%;
+  opacity: 0.92;
+  box-shadow:
+    0 0 6px 2px #67e8f9cc,
+    0 0 1.5px 0.5px #fff;
+  animation: twinkle 3.5s infinite alternate, star-move 18s linear infinite;
+  pointer-events: none;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.92; filter: blur(0.5px);}
+  50% { opacity: 0.55; filter: blur(1.5px);}
+}
+@keyframes star-move {
+  0% { transform: translateY(0) scale(1);}
+  100% { transform: translateY(-10px) scale(1.04);}
+}
+
+/* Meteor animasi */
+.meteor {
+  position: absolute;
+  width: 120px;
+  height: 3px;
+  background: linear-gradient(90deg, #fff 0%, #67e8f9 60%, transparent 100%);
+  border-radius: 2px;
+  opacity: 0.6;
+  filter: blur(1.2px);
+  box-shadow: 0 0 12px 2px #67e8f9aa;
+  animation: meteor-fall 7s cubic-bezier(.4,0,.2,1) infinite;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+@keyframes meteor-fall {
+  0% {
+    opacity: 0;
+    transform: translateX(0) translateY(0) rotate(-18deg) scaleX(1);
+  }
+  5% {
+    opacity: 0.85;
+  }
+  80% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(700px) translateY(120px) rotate(-18deg) scaleX(1.1);
+  }
+}
+
+/* ...existing about section styles... */
 @keyframes seamless-x {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
