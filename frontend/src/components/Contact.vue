@@ -1,6 +1,5 @@
 <script setup>
 defineOptions({ name: 'ContactSection' });
-const year = new Date().getFullYear();
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useRenderLoop } from '@tresjs/core'
 const y = ref(0)
