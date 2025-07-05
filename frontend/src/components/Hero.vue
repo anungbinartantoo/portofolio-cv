@@ -1,6 +1,7 @@
+
 <template>
   <section id="profil" class="relative min-h-screen flex flex-col justify-center items-center bg-black overflow-hidden">
-    
+
     <div class="absolute inset-0 z-0 bg-black"></div>
     <!-- Hero Content -->
     <div class="relative flex flex-col justify-center items-center z-10 pt-4 md:pt-10 pb-12 w-full hero-content">
