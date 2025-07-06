@@ -88,26 +88,26 @@ async function submitForm() {
 </script>
 
 <template>
-  <section id="kontak" class="py-24 bg-black min-h-screen flex items-center">
+  <section id="kontak" class="py-24 bg-white dark:bg-black min-h-screen flex items-center transition-colors duration-300">
     <div class="max-w-6xl mx-auto w-full flex flex-col md:flex-row gap-12 px-2 md:px-8">
       <!-- Form di kiri -->
       <div class="flex-1 flex flex-col justify-center">
-        <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-6 text-left">Contact</h2>
-        <p class="text-lg text-gray-400 mb-8 text-left">
+        <h2 class="text-4xl md:text-5xl font-extrabold text-cyan-800 dark:text-white mb-6 text-left transition-colors duration-300">Contact</h2>
+        <p class="text-lg text-cyan-900 dark:text-gray-400 mb-8 text-left transition-colors duration-300">
           Jangan ragu untuk terhubung atau bertanya.<br>
           Terbuka untuk kolaborasi, project baru, atau diskusi teknologi!
         </p>
         <form
           id="kontak-form"
           @submit.prevent="submitForm"
-          class="bg-[#23272d] rounded-xl p-6 shadow border border-gray-700 flex flex-col gap-4 animate-fade-in"
+          class="about-card rounded-xl p-6 shadow border transition-colors duration-300 flex flex-col gap-4 animate-fade-in"
         >
           <input
             name="nama"
             v-model="nama"
             type="text"
             placeholder="Nama"
-            class="p-3 rounded bg-black text-white border border-gray-700 focus:outline-none focus:border-teal-400"
+            class="p-3 rounded bg-white dark:bg-black text-cyan-900 dark:text-white border border-cyan-300 dark:border-gray-700 focus:outline-none focus:border-cyan-500 transition-colors duration-300"
             required
           />
           <input
@@ -115,31 +115,31 @@ async function submitForm() {
             v-model="email"
             type="email"
             placeholder="Email"
-            class="p-3 rounded bg-black text-white border border-gray-700 focus:outline-none focus:border-teal-400"
+            class="p-3 rounded bg-white dark:bg-black text-cyan-900 dark:text-white border border-cyan-300 dark:border-gray-700 focus:outline-none focus:border-cyan-500 transition-colors duration-300"
             required
           />
           <textarea
             name="pesan"
             v-model="pesan"
             placeholder="Pesan"
-            class="p-3 rounded bg-black text-white border border-gray-700 focus:outline-none focus:border-teal-400 resize-none"
+            class="p-3 rounded bg-white dark:bg-black text-cyan-900 dark:text-white border border-cyan-300 dark:border-gray-700 focus:outline-none focus:border-cyan-500 resize-none transition-colors duration-300"
             rows="4"
             required
           ></textarea>
           <button
             type="submit"
-            class="bg-teal-500 text-white font-bold py-3 rounded-lg hover:bg-teal-600 transition-colors duration-300"
+            class="bg-cyan-700 dark:bg-teal-500 text-white font-bold py-3 rounded-lg hover:bg-cyan-800 dark:hover:bg-teal-600 transition-colors duration-300"
           >
             Kirim Pesan
           </button>
-          <p v-if="sukses" class="text-green-400 mt-2 text-center">Pesan berhasil dikirim!</p>
-          <p v-if="error" class="text-red-400 mt-2 text-center">Terjadi kesalahan, coba lagi.</p>
+          <p v-if="sukses" class="text-green-600 dark:text-green-400 mt-2 text-center">Pesan berhasil dikirim!</p>
+          <p v-if="error" class="text-red-600 dark:text-red-400 mt-2 text-center">Terjadi kesalahan, coba lagi.</p>
         </form>
         <div class="flex gap-6 mt-6">
           <a
             href="https://github.com/anungbinartantoo"
             target="_blank"
-            class="group flex items-center gap-2 text-gray-400 hover:text-teal-400 transition"
+            class="group flex items-center gap-2 text-cyan-800 dark:text-gray-400 hover:text-cyan-700 dark:hover:text-teal-400 transition"
             aria-label="GitHub"
           >
             <svg class="w-6 h-6 fill-current transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24">
@@ -152,7 +152,7 @@ async function submitForm() {
           <a
             href="https://id.linkedin.com/in/anung-binartanto-983175292"
             target="_blank"
-            class="group flex items-center gap-2 text-gray-400 hover:text-teal-400 transition"
+            class="group flex items-center gap-2 text-cyan-800 dark:text-gray-400 hover:text-cyan-700 dark:hover:text-teal-400 transition"
             aria-label="LinkedIn"
           >
             <svg class="w-6 h-6 fill-current transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24">
@@ -165,10 +165,11 @@ async function submitForm() {
         </div>
       </div>
 
+      <!-- Kartu profil kanan -->
       <div class="flex-1 flex items-center justify-center min-h-[400px] md:pl-20">
         <div
           ref="cardRef"
-          class="relative w-full max-w-xs aspect-[3/4] bg-black rounded-3xl shadow-2xl border border-cyan-400/60 p-0 flex flex-col items-center overflow-hidden"
+          class="relative w-full max-w-xs aspect-[3/4] about-card flex flex-col items-center overflow-hidden p-0"
           :style="`
             box-shadow:
               0 0 18px 0 #00fff755,
@@ -187,8 +188,8 @@ async function submitForm() {
           <div class="absolute inset-0 rounded-3xl pointer-events-none border-2 border-cyan-400/40" style="box-shadow: 0 0 40px 0 #00fff7a0; z-index:1"></div>
           <!-- Name & Title -->
           <div class="relative z-10 flex flex-col items-center pt-8 pb-2 px-6">
-            <h3 class="text-3xl font-extrabold text-white mb-1 text-center drop-shadow">Anung Binartanto</h3>
-            <p class="text-base text-cyan-200 font-semibold mb-2 text-center drop-shadow">Fullstack Developer</p>
+            <h3 class="text-3xl font-extrabold text-cyan-900 dark:text-white mb-1 text-center drop-shadow transition-colors duration-300">Anung Binartanto</h3>
+            <p class="text-base text-cyan-700 dark:text-cyan-200 font-semibold mb-2 text-center drop-shadow transition-colors duration-300">Fullstack Developer</p>
           </div>
           <!-- Foto profil lebih naik dan lebih besar -->
           <div class="relative z-20 flex justify-center items-center w-full" style="margin-top: -60px;">
@@ -205,14 +206,14 @@ async function submitForm() {
               <div class="flex items-center gap-3">
                 <img src="/profile.png" alt="mini avatar" class="w-8 h-8 object-cover border border-white/20 rounded-xl" />
                 <div>
-                  <div class="text-white/90 font-medium text-sm">@anungbinartanto</div>
-                  <div class="text-cyan-200 text-xs">Online</div>
+                  <div class="text-cyan-900 dark:text-white font-medium text-sm transition-colors duration-300">@anungbinartanto</div>
+                  <div class="text-cyan-700 dark:text-cyan-200 text-xs transition-colors duration-300">Online</div>
                 </div>
               </div>
               <a
                 href="https://wa.me/6281390830955"
                 target="_blank"
-                class="bg-white/10 border border-white/20 rounded-xl p-2 text-white hover:bg-cyan-400/30 transition flex items-center justify-center"
+                class="bg-white/10 border border-white/20 rounded-xl p-2 text-cyan-900 dark:text-white hover:bg-cyan-400/30 dark:hover:bg-cyan-400/30 transition flex items-center justify-center"
                 aria-label="WhatsApp"
               >
                 <!-- WhatsApp SVG Logo Only -->
@@ -231,6 +232,32 @@ async function submitForm() {
 </template>
 
 <style scoped>
+.about-card {
+  background: linear-gradient(135deg, #e0f2fe 60%, #bae6fd 100%);
+  border: 1.5px solid #7dd3fc;
+  box-shadow: 0 4px 32px 0 #0e749044;
+  border-radius: 1.2rem;
+  transition:
+    box-shadow 0.3s,
+    border-color 0.3s,
+    background 0.3s,
+    border-radius 0.3s;
+}
+.dark .about-card {
+  background: linear-gradient(135deg, #23272d 60%, #1e293b 100%) !important;
+  border: 1.5px solid #334155 !important;
+  box-shadow: 0 4px 32px 0 #0e749044;
+}
+.about-card:hover {
+  border-color: #22d3ee;
+  box-shadow: 0 0 32px 0 #22d3ee55;
+}
+.dark .about-card:hover {
+  border-color: #06b6d4;
+  box-shadow: 0 0 32px 0 #06b6d455;
+  background: linear-gradient(135deg, #23272d 60%, #1e293b 100%) !important;
+}
+
 @keyframes fade-in {
   to {
     opacity: 1;

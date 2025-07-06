@@ -9,35 +9,35 @@ const educationHistory = [
 </script>
 
 <template>
-<section id="pendidikan" class="py-20 bg-black">
+<section id="pendidikan" class="py-20 bg-white dark:bg-black transition-colors duration-300">
   <div class="container mx-auto px-6">
-    <h2 class="text-3xl font-bold mb-12 text-cyan-300 text-center tracking-wide drop-shadow-lg">Riwayat Pendidikan</h2>
+    <h2 class="text-3xl font-bold mb-12 text-cyan-700 dark:text-cyan-300 text-center tracking-wide drop-shadow-lg transition-colors duration-300">Riwayat Pendidikan</h2>
     <div class="relative">
       <!-- Garis tengah animasi -->
-      <div class="absolute h-full border-r-2 border-cyan-700 left-1/2 transform -translate-x-1/2 animate-pulse-line"></div>
+      <div class="absolute h-full border-r-2 border-cyan-300 dark:border-cyan-700 left-1/2 transform -translate-x-1/2 animate-pulse-line transition-colors duration-300"></div>
       <div v-for="(edu, index) in educationHistory" :key="edu.id"
         class="mb-16 flex justify-between items-center w-full animate-fade-in-up"
         :style="{ animationDelay: (index * 0.18) + 's' }"
       >
         <div v-if="index % 2 === 0" class="w-full flex">
           <div class="w-1/2 pr-8 text-right">
-            <p class="font-semibold text-cyan-400 mb-1 animate-slide-in-right">{{ edu.period }}</p>
-            <h3 class="text-2xl font-bold text-gray-100 mb-1 animate-slide-in-right">{{ edu.institution }}</h3>
-            <p class="text-gray-400 animate-slide-in-right">{{ edu.major }}</p>
+            <p class="font-semibold text-cyan-600 dark:text-cyan-300 mb-1 animate-slide-in-right transition-colors duration-300">{{ edu.period }}</p>
+            <h3 class="text-2xl font-bold text-cyan-900 dark:text-white mb-1 animate-slide-in-right transition-colors duration-300">{{ edu.institution }}</h3>
+            <p class="text-gray-700 dark:text-gray-300 animate-slide-in-right transition-colors duration-300">{{ edu.major }}</p>
           </div>
           <div class="w-1/2 flex justify-start items-center">
             <!-- Titik animasi -->
-            <div class="w-6 h-6 bg-cyan-400 rounded-full shadow-lg border-4 border-black z-10 animate-pulse"></div>
+            <div class="w-6 h-6 bg-cyan-400 dark:bg-cyan-700 rounded-full shadow-lg border-4 border-white dark:border-black z-10 animate-pulse transition-colors duration-300"></div>
           </div>
         </div>
         <div v-else class="w-full flex">
           <div class="w-1/2 flex justify-end items-center">
-            <div class="w-6 h-6 bg-cyan-400 rounded-full shadow-lg border-4 border-black z-10 animate-pulse"></div>
+            <div class="w-6 h-6 bg-cyan-400 dark:bg-cyan-700 rounded-full shadow-lg border-4 border-white dark:border-black z-10 animate-pulse transition-colors duration-300"></div>
           </div>
           <div class="w-1/2 pl-8 text-left">
-            <p class="font-semibold text-cyan-400 mb-1 animate-slide-in-left">{{ edu.period }}</p>
-            <h3 class="text-2xl font-bold text-gray-100 mb-1 animate-slide-in-left">{{ edu.institution }}</h3>
-            <p class="text-gray-400 animate-slide-in-left">{{ edu.major }}</p>
+            <p class="font-semibold text-cyan-600 dark:text-cyan-300 mb-1 animate-slide-in-left transition-colors duration-300">{{ edu.period }}</p>
+            <h3 class="text-2xl font-bold text-cyan-900 dark:text-white mb-1 animate-slide-in-left transition-colors duration-300">{{ edu.institution }}</h3>
+            <p class="text-gray-700 dark:text-gray-300 animate-slide-in-left transition-colors duration-300">{{ edu.major }}</p>
           </div>
         </div>
       </div>

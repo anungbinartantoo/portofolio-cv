@@ -1,8 +1,12 @@
 <template>
-  <header class="bg-black/95 backdrop-blur-md border-b border-gray-800 sticky top-0 z-50">
+  <header class="backdrop-blur-md border-b border-gray-800 sticky top-0 z-50 transition-colors duration-300 bg-cyan-500 dark:bg-black">
     <nav class="flex justify-between items-center px-6 py-3 relative">
       <!-- Logo -->
-      <div class="flex items-center space-x-2 group ml-2">
+      <div
+        class="flex items-center space-x-2 group ml-2 cursor-pointer"
+        @click="scrollToHero"
+      >
+        <!-- Tambahkan icon di kiri nama -->
         <img
           src="https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/dev-512.png"
           alt="Logo"
@@ -12,46 +16,65 @@
           ANUNG BINARTANTO
         </span>
       </div>
-      <!-- Hamburger & Close Button -->
-      <div
-        class="relative z-50 group ml-[-8px]"
-        @mousemove="onMouseMove"
-        @mouseleave="resetTransform"
-      >
+      <!-- Hamburger & Theme Toggle -->
+      <div class="flex items-center gap-10">
+        <!-- Theme switcher dengan icon di dalam toggle -->
         <button
-          @click="open = !open"
-          ref="menuBtn"
-          class="w-14 h-14 flex items-center justify-center rounded-full bg-white border border-gray-300 transition active:scale-95 focus:outline-none hover:shadow-[0_0_0_6px_rgba(209,213,219,0.7),0_4px_24px_rgba(0,0,0,0.10)]"
-          aria-label="Menu"
-          :style="menuBtnStyle"
+          @click="setTheme(theme === 'dark' ? 'light' : 'dark')"
+          class="relative w-12 h-6 rounded-full transition-colors duration-300 focus:outline-none flex items-center"
+          :class="theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'"
+          aria-label="Toggle dark mode"
         >
-          <span class="relative w-10 h-10 flex items-center justify-center">
-            <!-- Garis Atas -->
-            <span
-              :class="[
-
-                'absolute left-1/2 w-6 h-0.5 bg-gray-900 rounded transition-all duration-300 origin-center',
-                open ? 'top-1/2 rotate-45 -translate-x-1/2 -translate-y-1/2' : 'top-3 -translate-x-1/2 rotate-0'
-              ]"
-            ></span>
-            <!-- Garis Tengah -->
-            <span
-              :class="[
-
-                'absolute left-1/2 w-6 h-0.5 bg-gray-900 rounded transition-all duration-300 origin-center',
-                open ? 'opacity-0' : 'top-5 -translate-x-1/2 opacity-100'
-              ]"
-            ></span>
-            <!-- Garis Bawah -->
-            <span
-              :class="[
-
-                'absolute left-1/2 w-6 h-0.5 bg-gray-900 rounded transition-all duration-300 origin-center',
-                open ? 'top-1/2 -rotate-45 -translate-x-1/2 -translate-y-1/2' : 'top-7 -translate-x-1/2 rotate-0'
-              ]"
-            ></span>
+          <span
+            class="absolute top-1 left-1 w-4 h-4 rounded-full shadow-md transition-all duration-300 flex items-center justify-center"
+            :class="theme === 'dark' ? 'translate-x-6 bg-yellow-300' : 'translate-x-0 bg-white'"
+          >
+            <svg v-if="theme !== 'dark'" class="w-3 h-3 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 15a5 5 0 100-10 5 5 0 000 10zm0 2a7 7 0 100-14 7 7 0 000 14zm0-16a1 1 0 011 1v2a1 1 0 11-2 0V2a1 1 0 011-1zm0 16a1 1 0 011 1v2a1 1 0 11-2 0v-2a1 1 0 011-1zm8-8a1 1 0 01-1 1h-2a1 1 0 110-2h2a1 1 0 011 1zm-16 0a1 1 0 011 1H2a1 1 0 110-2h2a1 1 0 011 1zm12.07 5.07a1 1 0 010 1.41l-1.42 1.42a1 1 0 11-1.41-1.41l1.42-1.42a1 1 0 011.41 0zm-10.14 0a1 1 0 010 1.41L4.93 17.9a1 1 0 11-1.41-1.41l1.42-1.42a1 1 0 011.41 0zm10.14-10.14a1 1 0 011.41 0l1.42 1.42a1 1 0 11-1.41 1.41l-1.42-1.42a1 1 0 010-1.41zm-10.14 0a1 1 0 011.41 0L6.34 4.93a1 1 0 11-1.41 1.41L3.51 4.93a1 1 0 010-1.41z"/>
+            </svg>
+            <svg v-else class="w-3 h-3 text-gray-800" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+            </svg>
           </span>
         </button>
+        <!-- Hamburger Button -->
+        <div
+          class="relative z-50 group ml-[-8px]"
+          @mousemove="onMouseMove"
+          @mouseleave="resetTransform"
+        >
+          <button
+            @click="open = !open"
+            ref="menuBtn"
+            class="w-14 h-14 flex items-center justify-center rounded-full bg-white border border-gray-300 transition active:scale-95 focus:outline-none hover:shadow-[0_0_0_6px_rgba(209,213,219,0.7),0_4px_24px_rgba(0,0,0,0.10)]"
+            aria-label="Menu"
+            :style="menuBtnStyle"
+          >
+            <span class="relative w-10 h-10 flex items-center justify-center">
+              <!-- Garis Atas -->
+              <span
+                :class="[
+                  'absolute left-1/2 w-6 h-0.5 bg-gray-900 rounded transition-all duration-300 origin-center',
+                  open ? 'top-1/2 rotate-45 -translate-x-1/2 -translate-y-1/2' : 'top-3 -translate-x-1/2 rotate-0'
+                ]"
+              ></span>
+              <!-- Garis Tengah -->
+              <span
+                :class="[
+                  'absolute left-1/2 w-6 h-0.5 bg-gray-900 rounded transition-all duration-300 origin-center',
+                  open ? 'opacity-0' : 'top-5 -translate-x-1/2 opacity-100'
+                ]"
+              ></span>
+              <!-- Garis Bawah -->
+              <span
+                :class="[
+                  'absolute left-1/2 w-6 h-0.5 bg-gray-900 rounded transition-all duration-300 origin-center',
+                  open ? 'top-1/2 -rotate-45 -translate-x-1/2 -translate-y-1/2' : 'top-7 -translate-x-1/2 rotate-0'
+                ]"
+              ></span>
+            </span>
+          </button>
+        </div>
       </div>
       <!-- Overlay Menu -->
       <transition name="slide-fade">
@@ -119,22 +142,6 @@
                 Instagram
               </a>
             </div>
-            <!-- Theme switcher -->
-            <div class="flex items-center space-x-2 mt-4">
-              <span class="text-xs text-gray-500 dark:text-gray-400">Light</span>
-              <button
-                @click="setTheme(theme === 'dark' ? 'light' : 'dark')"
-                class="relative w-12 h-6 rounded-full transition-colors duration-300 focus:outline-none"
-                :class="theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'"
-                aria-label="Toggle dark mode"
-              >
-                <span
-                  class="absolute top-1 left-1 w-4 h-4 rounded-full bg-white shadow-md transition-all duration-300"
-                  :class="theme === 'dark' ? 'translate-x-6 bg-yellow-300' : 'translate-x-0 bg-white'"
-                ></span>
-              </button>
-              <span class="text-xs text-gray-500 dark:text-gray-400">Dark</span>
-            </div>
           </div>
         </div>
       </transition>
@@ -143,6 +150,7 @@
 </template>
 
 <script setup>
+defineOptions({ name: 'AppNavbar' });
 import { ref, watchEffect } from 'vue';
 const open = ref(false);
 const theme = ref('light');
@@ -184,22 +192,12 @@ watchEffect(() => {
     document.documentElement.classList.remove('dark');
   }
 });
-defineOptions({ name: 'AppNavbar' });
-</script>
 
-<style scoped>
-.slide-fade-enter-active,
-.slide-fade-leave-active {
-  transition: all 0.3s cubic-bezier(.4,0,.2,1);
+// --- Scroll to Hero ---
+function scrollToHero() {
+  const hero = document.getElementById('profil');
+  if (hero) {
+    hero.scrollIntoView({ behavior: 'smooth' });
+  }
 }
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  opacity: 0;
-  transform: translateY(-20px) scale(0.95);
-}
-.slide-fade-enter-to,
-.slide-fade-leave-from {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-</style>
+</script>
