@@ -35,7 +35,7 @@ const projects = [
 <template>
 <section id="proyek" class="py-20 bg-black">
   <div class="container mx-auto px-6">
-    <h2 class="text-3xl font-bold mb-10 text-cyan-300 text-center tracking-wide drop-shadow-lg">Proyek Unggulan</h2>
+    <h2 class="text-3xl font-bold mb-10 text-white text-center tracking-wide drop-shadow-lg">Proyek Unggulan</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
       <div
         v-for="(project, idx) in projects"
