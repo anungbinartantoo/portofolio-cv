@@ -7,7 +7,8 @@
     <Skills />
     <Projects />
     <Contact />
-    <Footer />
+    <Footer ref="footerRef" />
+    <PersonalAssistant :footer-ref="footerRef" />
   </div>
 </template>
 
@@ -20,4 +21,5 @@ import Skills from './components/Skills.vue'
 import Projects from './components/Projects.vue'
 import Contact from './components/Contact.vue'
 import Footer from './components/Footer.vue'
+import PersonalAssistant from './components/PersonalAssistant.vue' // Import komponen
 </script>

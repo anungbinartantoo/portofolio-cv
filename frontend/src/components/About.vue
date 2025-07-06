@@ -1,12 +1,6 @@
 <template>
   <section id="about" class="py-24 bg-black min-h-screen overflow-hidden relative">
-    <!-- Background antariksa: bintang dan meteor -->
-    <div class="absolute inset-0 z-0 pointer-events-none">
-      <!-- Bintang-bintang -->
-      <div v-for="n in 36" :key="n" :style="starStyle(n)" class="star"></div>
-      <!-- Meteor animasi -->
-      <div v-for="m in 2" :key="'meteor'+m" :style="meteorStyle(m)" class="meteor"></div>
-    </div>
+
     <div class="max-w-6xl mx-auto px-2 md:px-8 relative z-10">
       <div class="w-full">
         <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-8 text-left">About me</h1>
@@ -43,11 +37,11 @@
               <div
                 v-for="(exp, i) in experiences"
                 :key="`${n}-${i}`"
-                class="min-w-[420px] max-w-lg h-[140px] bg-[#23272d] rounded-xl px-10 py-6 border border-gray-700 shadow text-left flex flex-col justify-center transition-transform duration-300 hover:scale-[1.03] hover:border-teal-400"
+                class="about-card min-w-[420px] max-w-lg h-[140px] rounded-xl px-10 py-6 border border-gray-700 shadow text-left flex flex-col justify-center transition-transform duration-300 hover:scale-[1.03] hover:border-cyan-400"
               >
                 <h3 class="font-semibold text-lg text-white mb-2 truncate">{{ exp.title }}</h3>
-                <p class="text-gray-400 text-xs mb-1">{{ exp.period }}</p>
-                <p class="text-gray-400 text-sm line-clamp-2">{{ exp.desc }}</p>
+                <p class="text-cyan-300 text-xs mb-1">{{ exp.period }}</p>
+                <p class="text-gray-300 text-sm line-clamp-2">{{ exp.desc }}</p>
               </div>
             </template>
           </div>
@@ -55,7 +49,7 @@
         <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">Aktivitas Coding</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           <!-- Kartu Profil -->
-          <div class="bg-[#23272d] rounded-xl p-6 border border-gray-700 shadow flex flex-col items-center justify-center">
+          <div class="about-card flex flex-col items-center justify-center p-6">
             <div class="relative mb-4">
               <img src="https://avatars.githubusercontent.com/u/55883148?v=4" alt="Anung Binartanto" class="w-24 h-24 rounded-full border-2 border-gray-700" />
               <a
@@ -79,7 +73,7 @@
             </div>
           </div>
           <!-- Chart Github -->
-          <div class="md:col-span-2 bg-[#23272d] rounded-xl border border-gray-700 shadow flex flex-col items-center justify-center p-6">
+          <div class="about-card md:col-span-2 flex flex-col items-center justify-center p-6">
             <img
               src="https://ghchart.rshah.org/anungbinartantoo"
               alt="GitHub chart anungbinartantoo"
@@ -160,121 +154,60 @@ onMounted(() => {
   });
 });
 
-// Bintang style acak
-function starStyle() {
-  const top = Math.random() * 100;
-  const left = Math.random() * 100;
-  const size = Math.random() * 2 + 1;
-  const duration = 3 + Math.random() * 5;
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    width: `${size}px`,
-    height: `${size}px`,
-    animationDuration: `${duration}s`
-  };
-}
-
-// Meteor style acak
-function meteorStyle() {
-  const top = 10 + Math.random() * 60;
-  const left = -20 - Math.random() * 30;
-  const delay = Math.random() * 8;
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    animationDelay: `${delay}s`
-  };
-}
-
 const experiences = [
   {
-    title: 'Flutter Bootcamp at Jabar Coding Camp',
-    period: 'Mar, 2022 – May, 2022 • 2 months',
-    desc: 'Bootcamp at Jabar Coding Camp (JCC)'
+    title: 'Bootcamp Web Development at DICODING',
+    period: 'Mar, 2020 – June, 2020 • 3 months',
+    desc: 'Bootcamp at DICODING to learn Web Development',
   },
   {
-    title: 'Web Development Intern',
-    period: 'Jun, 2022 – Aug, 2022 • 3 months',
-    desc: 'Internship at XYZ Company'
+    title: 'Web Development ',
+    period: 'Jun, 2023 – Now • 1 year 4 months',
+    desc: 'Make a website for a small business '
   },
   {
-    title: 'Freelance Web Developer',
-    period: 'Sep, 2022 – Present • 1 year 1 month',
-    desc: 'Building websites for various clients'
+    title: 'UI/UX Designer',
+    period: 'Jan, 2023 – Now • 1 year 10 months',
+    desc: 'Designing user interfaces for mobile apps ('
   },
   {
-    title: 'UI/UX Designer (Dummy)',
-    period: 'Jan, 2023 – Feb, 2023 • 2 months',
-    desc: 'Designing user interfaces for mobile apps (dummy data)'
+    title: 'Saff event',
+    period: 'Mei, 2025 – jun, 2025 • 2 months',
+    desc: 'Organizing event in Yogyakarta'
   },
   {
-    title: 'Backend Developer (Dummy)',
-    period: 'Mar, 2023 – May, 2023 • 3 months',
-    desc: 'Developing RESTful APIs for internal tools (dummy data)'
+    title: 'Workshop AI at HMIF Amikom Yogyakarta',
+    period: 'Jun, 2025 – Jun, 2025 • 1 month',
+    desc: 'Workshop AI for students at HMIF Amikom Yogyakarta'
   },
   {
-    title: 'Project Manager (Dummy)',
-    period: 'Jun, 2023 – Sep, 2023 • 4 months',
-    desc: 'Managing a small team for a startup project (dummy data)'
+    title: 'Project Manager',
+    period: 'Dec, 2025 – Jan, 2025 • 2 months',
+    desc: 'Managing a small team for a startup project idea'
   }
 ]
 </script>
 
 <style scoped>
-/* Bintang sama seperti Hero */
-.star {
-  position: absolute;
-  background: radial-gradient(circle, #fff 70%, #a7f3f3 100%);
-  border-radius: 50%;
-  opacity: 0.92;
-  box-shadow:
-    0 0 6px 2px #67e8f9cc,
-    0 0 1.5px 0.5px #fff;
-  animation: twinkle 3.5s infinite alternate, star-move 18s linear infinite;
-  pointer-events: none;
+.about-card {
+  background: linear-gradient(135deg, #23272d 60%, #1e293b 100%);
+  border: 1.5px solid #334155;
+  box-shadow: 0 4px 32px 0 #0e749044;
+  border-radius: 1.2rem;
+  transition:
+    box-shadow 0.3s,
+    border-color 0.3s,
+    background 0.3s,
+    border-radius 0.3s;
 }
-@keyframes twinkle {
-  0%, 100% { opacity: 0.92; filter: blur(0.5px);}
-  50% { opacity: 0.55; filter: blur(1.5px);}
-}
-@keyframes star-move {
-  0% { transform: translateY(0) scale(1);}
-  100% { transform: translateY(-10px) scale(1.04);}
+.about-card:hover {
+  border-color: #22d3ee;
+  box-shadow: 0 0 32px 0 #22d3ee55;
+  background: linear-gradient(135deg, #23272d 40%, #164e63 100%);
+  border-radius: 1.5rem;
 }
 
-/* Meteor animasi */
-.meteor {
-  position: absolute;
-  width: 120px;
-  height: 3px;
-  background: linear-gradient(90deg, #fff 0%, #67e8f9 60%, transparent 100%);
-  border-radius: 2px;
-  opacity: 0.6;
-  filter: blur(1.2px);
-  box-shadow: 0 0 12px 2px #67e8f9aa;
-  animation: meteor-fall 7s cubic-bezier(.4,0,.2,1) infinite;
-  pointer-events: none;
-  transition: opacity 0.4s;
-}
-@keyframes meteor-fall {
-  0% {
-    opacity: 0;
-    transform: translateX(0) translateY(0) rotate(-18deg) scaleX(1);
-  }
-  5% {
-    opacity: 0.85;
-  }
-  80% {
-    opacity: 0.85;
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(700px) translateY(120px) rotate(-18deg) scaleX(1.1);
-  }
-}
 
-/* ...existing about section styles... */
 @keyframes seamless-x {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }

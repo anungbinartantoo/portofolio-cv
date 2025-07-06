@@ -26,11 +26,11 @@ const skills = [
       >
         <!-- Efek glow saat hover -->
         <div class="absolute inset-0 rounded-2xl pointer-events-none transition-all duration-300 group-hover:shadow-[0_0_32px_0_#22d3ee99]"></div>
-        <!-- Icon Skill dengan animasi pulse -->
+        <!-- Icon Skill hanya efek hover -->
         <div class="flex justify-center mb-4">
           <IconifyIcon
             :icon="skill.icon"
-            class="text-5xl text-cyan-300 drop-shadow-lg transition-transform duration-300 group-hover:scale-125 group-hover:-rotate-6 animate-pulse-scale"
+            class="text-5xl text-cyan-300 drop-shadow-lg transition-transform duration-300 group-hover:scale-125 group-hover:-rotate-6"
           />
         </div>
         <h3 class="text-lg font-bold text-white mb-1 tracking-wide group-hover:text-cyan-300 transition-colors duration-300">{{ skill.name }}</h3>
@@ -54,23 +54,5 @@ const skills = [
   animation: fade-in 0.7s cubic-bezier(.4,0,.2,1) forwards;
 }
 
-/* Animasi membesar-mengecil terus-menerus */
-@keyframes pulse-scale {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.14);
-  }
-}
-.animate-pulse-scale {
-  animation: pulse-scale 2.2s cubic-bezier(.4,0,.2,1) infinite;
-}
-
-/* Saat hover, animasi pulse dihentikan dan icon diam */
-.group:hover .animate-pulse-scale {
-  animation-play-state: paused !important;
-  transform: scale(1.25) rotate(-6deg);
-  transition: transform 0.3s;
-}
+/* Hapus animasi pulse pada icon */
 </style>
