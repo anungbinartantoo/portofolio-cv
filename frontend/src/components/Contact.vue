@@ -43,6 +43,48 @@ onBeforeUnmount(() => {
     card.removeEventListener('mouseleave', handleMouseLeave)
   }
 })
+
+// Form submission logic
+const nama = ref('');
+const email = ref('');
+const pesan = ref('');
+const sukses = ref(false);
+const error = ref(false);
+let timeoutId = null;
+
+async function submitForm() {
+  sukses.value = false;
+  error.value = false;
+  try {
+    const res = await fetch('https://formspree.io/f/xldnkwjl', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(document.querySelector('#kontak-form'))
+    });
+    if (res.ok) {
+      sukses.value = true;
+      nama.value = '';
+      email.value = '';
+      pesan.value = '';
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        sukses.value = false;
+      }, 5000);
+    } else {
+      error.value = true;
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        error.value = false;
+      }, 5000);
+    }
+  } catch {
+    error.value = true;
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      error.value = false;
+    }, 5000);
+  }
+}
 </script>
 
 <template>
@@ -56,22 +98,29 @@ onBeforeUnmount(() => {
           Terbuka untuk kolaborasi, project baru, atau diskusi teknologi!
         </p>
         <form
+          id="kontak-form"
+          @submit.prevent="submitForm"
           class="bg-[#23272d] rounded-xl p-6 shadow border border-gray-700 flex flex-col gap-4 animate-fade-in"
-          @submit.prevent
         >
           <input
+            name="nama"
+            v-model="nama"
             type="text"
             placeholder="Nama"
             class="p-3 rounded bg-black text-white border border-gray-700 focus:outline-none focus:border-teal-400"
             required
           />
           <input
+            name="email"
+            v-model="email"
             type="email"
             placeholder="Email"
             class="p-3 rounded bg-black text-white border border-gray-700 focus:outline-none focus:border-teal-400"
             required
           />
           <textarea
+            name="pesan"
+            v-model="pesan"
             placeholder="Pesan"
             class="p-3 rounded bg-black text-white border border-gray-700 focus:outline-none focus:border-teal-400 resize-none"
             rows="4"
@@ -83,6 +132,8 @@ onBeforeUnmount(() => {
           >
             Kirim Pesan
           </button>
+          <p v-if="sukses" class="text-green-400 mt-2 text-center">Pesan berhasil dikirim!</p>
+          <p v-if="error" class="text-red-400 mt-2 text-center">Terjadi kesalahan, coba lagi.</p>
         </form>
         <div class="flex gap-6 mt-6">
           <a

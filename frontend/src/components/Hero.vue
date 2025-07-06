@@ -16,9 +16,14 @@
         <p class="text-xs text-gray-300 mb-2 text-center md:text-left">Located in Yogyakarta, Indonesia</p>
         <button
           class="mt-2 px-7 py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold rounded-xl shadow-lg transition-all duration-300 text-lg mx-auto md:mx-0"
-          @click="downloadCV"
         >
-          Download CV
+          <a
+            href="/cv-anung-binartanto.pdf"
+            download
+            class="block w-full h-full"
+          >
+            Download CV
+          </a>
         </button>
       </div>
       <!-- Kanan: Foto profil (Bulan besar) -->
