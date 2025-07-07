@@ -1,16 +1,12 @@
 <script setup>
+import { ref, onMounted } from 'vue';
 import { Icon as IconifyIcon } from '@iconify/vue';
 defineOptions({ name: 'SkillsSection' });
-const skills = [
-  { name: 'Vue.js', level: 'Mahir', icon: 'logos:vue' },
-  { name: 'JavaScript', level: 'Mahir', icon: 'logos:javascript' },
-  { name: 'Tailwind CSS', level: 'Mahir', icon: 'logos:tailwindcss-icon' },
-  { name: 'Node.js', level: 'Menengah', icon: 'logos:nodejs-icon' },
-  { name: 'Express.js', level: 'Menengah', icon: 'simple-icons:express' },
-  { name: 'PostgreSQL', level: 'Menengah', icon: 'logos:postgresql' },
-  { name: 'Git & GitHub', level: 'Mahir', icon: 'logos:git-icon' },
-  { name: 'HTML5 & CSS3', level: 'Mahir', icon: 'logos:html-5' },
-];
+const skills = ref([]);
+onMounted(async () => {
+  const res = await fetch('http://localhost:3001/api/skills');
+  skills.value = await res.json();
+});
 </script>
 
 <template>
