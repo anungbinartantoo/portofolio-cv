@@ -6,14 +6,14 @@ module.exports = {
     { id: 3, period: '2018 - 2020', institution: 'SMP Negeri 2 Sragen', major: '' }
   ],
   skills: [
-{ name: 'Vue.js', level: 'Mahir', icon: 'logos:vue' },
-{ name: 'JavaScript', level: 'Mahir', icon: 'logos:javascript' },
-{ name: 'Tailwind CSS', level: 'Mahir', icon: 'logos:tailwindcss-icon' },
-{ name: 'Node.js', level: 'Menengah', icon: 'logos:nodejs-icon' },
-{ name: 'Express.js', level: 'Menengah', icon: 'simple-icons:express' },
-{ name: 'PostgreSQL', level: 'Menengah', icon: 'logos:postgresql' },
-{ name: 'Git & GitHub', level: 'Mahir', icon: 'logos:git-icon' },
-{ name: 'HTML5 & CSS3', level: 'Mahir', icon: 'logos:html-5' },
+  { name: 'Vue.js', level: 'Mahir', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg' },
+  { name: 'JavaScript', level: 'Mahir', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+  { name: 'Tailwind CSS', level: 'Mahir', icon: 'https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg' },
+  { name: 'Node.js', level: 'Menengah', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+  { name: 'Express.js', level: 'Menengah', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg' },
+  { name: 'PostgreSQL', level: 'Menengah', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
+  { name: 'Git & GitHub', level: 'Mahir', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
+  { name: 'HTML5 & CSS3', level: 'Mahir', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' }
   ],
   projects: [
      {

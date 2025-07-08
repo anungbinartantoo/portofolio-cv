@@ -2,8 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 require('dotenv').config();
-const data = require('./data');
-const aiData = require('./dataAI'); // Import AI data
+const aiData = require('./dataAI');
+const skillService = require('./services/skillService');
+const educationService = require('./services/educationService');
+const projectService = require('./services/projectService');
+const experienceService = require('./services/experienceService');
 
 const app = express();
 app.use(cors());
@@ -22,23 +25,43 @@ try {
 }
 
 // Endpoint untuk education
-app.get('/api/education', (req, res) => {
-  res.json(data.educationHistory);
+app.get('/api/education', async (req, res) => {
+  try {
+    const education = await educationService.getAllEducation();
+    res.json(education);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // Endpoint untuk skills
-app.get('/api/skills', (req, res) => {
-  res.json(data.skills);
+app.get('/api/skills', async (req, res) => {
+  try {
+    const skills = await skillService.getAllSkills();
+    res.json(skills);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // Endpoint untuk projects
-app.get('/api/projects', (req, res) => {
-  res.json(data.projects);
+app.get('/api/projects', async (req, res) => {
+  try {
+    const projects = await projectService.getAllProjects();
+    res.json(projects);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // Endpoint untuk experiences
-app.get('/api/experiences', (req, res) => {
-  res.json(data.experiences);
+app.get('/api/experiences', async (req, res) => {
+  try {
+    const experiences = await experienceService.getAllExperiences();
+    res.json(experiences);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // Personal Assistant - Clean & Organized
@@ -86,12 +109,9 @@ app.post('/api/assistant', async (req, res) => {
 
   } catch (error) {
     console.error('❌ Gemini AI Error:', error);
-    
-    res.status(500).json({
-      success: false,
-      error: aiData.responseTemplates.error,
-      details: error.message,
-      timestamp: new Date().toISOString()
+    return res.json({
+      success: true,
+      response: "Maaf, Aku lagi ngga bisa balas pertanyaanmu sekarang. coba beberapa saat lagi ya! 🙏"
     });
   }
 });
