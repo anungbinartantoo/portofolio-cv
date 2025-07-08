@@ -4,7 +4,7 @@
       <!-- Logo -->
       <div
         class="flex items-center space-x-2 group ml-2 cursor-pointer"
-        @click="scrollToHero"
+        @click="scrollToSection('profil')"
       >
         <!-- Tambahkan icon di kiri nama -->
         <img
@@ -16,6 +16,7 @@
           ANUNG BINARTANTO
         </span>
       </div>
+
       <!-- Hamburger & Theme Toggle -->
       <div class="flex items-center gap-10">
         <!-- Theme switcher dengan icon di dalam toggle -->
@@ -37,6 +38,7 @@
             </svg>
           </span>
         </button>
+
         <!-- Hamburger Button -->
         <div
           class="relative z-50 group ml-[-8px]"
@@ -54,6 +56,7 @@
               <!-- Garis Atas -->
               <span
                 :class="[
+
                   'absolute left-1/2 w-6 h-0.5 bg-gray-900 rounded transition-all duration-300 origin-center',
                   open ? 'top-1/2 rotate-45 -translate-x-1/2 -translate-y-1/2' : 'top-3 -translate-x-1/2 rotate-0'
                 ]"
@@ -61,6 +64,7 @@
               <!-- Garis Tengah -->
               <span
                 :class="[
+
                   'absolute left-1/2 w-6 h-0.5 bg-gray-900 rounded transition-all duration-300 origin-center',
                   open ? 'opacity-0' : 'top-5 -translate-x-1/2 opacity-100'
                 ]"
@@ -68,6 +72,7 @@
               <!-- Garis Bawah -->
               <span
                 :class="[
+
                   'absolute left-1/2 w-6 h-0.5 bg-gray-900 rounded transition-all duration-300 origin-center',
                   open ? 'top-1/2 -rotate-45 -translate-x-1/2 -translate-y-1/2' : 'top-7 -translate-x-1/2 rotate-0'
                 ]"
@@ -76,6 +81,7 @@
           </button>
         </div>
       </div>
+
       <!-- Overlay Menu -->
       <transition name="slide-fade">
         <div
@@ -87,32 +93,29 @@
             <h2 class="text-xl font-bold mb-2 text-gray-800 dark:text-gray-100">Navigation</h2>
             <hr class="w-full mb-8 border-gray-300 dark:border-gray-700" />
             <nav class="flex flex-col space-y-4 mb-12">
-              <a
-                href="#profil"
-                @click="open = false"
-                class="text-4xl font-semibold text-gray-800 hover:text-black hover:bg-gray-100/80 dark:text-gray-100 dark:hover:text-yellow-300 dark:hover:bg-gray-800/70 transition rounded-lg px-3 py-1 transform hover:scale-105"
-              >Home</a>
-              <a
-                href="#about"
-                @click="open = false"
-                class="text-4xl font-semibold text-gray-800 hover:text-black hover:bg-gray-100/80 dark:text-gray-100 dark:hover:text-yellow-300 dark:hover:bg-gray-800/70 transition rounded-lg px-3 py-1 transform hover:scale-105"
-              >About</a>
-              <a
-                href="#proyek"
-                @click="open = false"
-                class="text-4xl font-semibold text-gray-800 hover:text-black hover:bg-gray-100/80 dark:text-gray-100 dark:hover:text-yellow-300 dark:hover:bg-gray-800/70 transition rounded-lg px-3 py-1 transform hover:scale-105"
-              >Projects</a>
-              <a
-                href="#kontak"
-                @click="open = false"
-                class="text-4xl font-semibold text-gray-800 hover:text-black hover:bg-gray-100/80 dark:text-gray-100 dark:hover:text-yellow-300 dark:hover:bg-gray-800/70 transition rounded-lg px-3 py-1 transform hover:scale-105"
-              >Contact</a>
+              <button
+                @click="scrollToSection('profil')"
+                class="text-4xl font-semibold text-gray-800 hover:text-black hover:bg-gray-100/80 dark:text-gray-100 dark:hover:text-yellow-300 dark:hover:bg-gray-800/70 transition rounded-lg px-3 py-1 transform hover:scale-105 text-left"
+              >Home</button>
+              <button
+                @click="scrollToSection('about')"
+                class="text-4xl font-semibold text-gray-800 hover:text-black hover:bg-gray-100/80 dark:text-gray-100 dark:hover:text-yellow-300 dark:hover:bg-gray-800/70 transition rounded-lg px-3 py-1 transform hover:scale-105 text-left"
+              >About</button>
+              <button
+                @click="scrollToSection('proyek')"
+                class="text-4xl font-semibold text-gray-800 hover:text-black hover:bg-gray-100/80 dark:text-gray-100 dark:hover:text-yellow-300 dark:hover:bg-gray-800/70 transition rounded-lg px-3 py-1 transform hover:scale-105 text-left"
+              >Projects</button>
+              <button
+                @click="scrollToSection('kontak')"
+                class="text-4xl font-semibold text-gray-800 hover:text-black hover:bg-gray-100/80 dark:text-gray-100 dark:hover:text-yellow-300 dark:hover:bg-gray-800/70 transition rounded-lg px-3 py-1 transform hover:scale-105 text-left"
+              >Contact</button>
             </nav>
+
             <h2 class="text-xl font-bold mb-2 text-gray-800 dark:text-gray-100">Links</h2>
             <hr class="w-full mb-4 border-gray-300 dark:border-gray-700" />
             <div class="mb-8 flex flex-wrap gap-4 text-lg text-gray-700 dark:text-gray-200">
               <a
-                href="https://github.com/"
+                href="https://github.com/anungbinartantoo"
                 target="_blank"
                 class="flex items-center gap-1 hover:underline hover:text-black dark:hover:text-yellow-300 transition group"
               >
@@ -152,6 +155,7 @@
 <script setup>
 defineOptions({ name: 'AppNavbar' });
 import { ref, watchEffect } from 'vue';
+
 const open = ref(false);
 const theme = ref('light');
 
@@ -172,6 +176,7 @@ function onMouseMove(e) {
   const moveY = (y / (rect.height / 2)) * 4;
   menuBtnStyle.value = `transform: perspective(200px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateX(${moveX}px) translateY(${moveY}px); transition: transform 0.15s cubic-bezier(.4,0,.2,1);`;
 }
+
 function resetTransform() {
   menuBtnStyle.value = 'transform: none; transition: transform 0.3s cubic-bezier(.4,0,.2,1);';
 }
@@ -185,6 +190,7 @@ function setTheme(mode) {
     document.documentElement.classList.remove('dark');
   }
 }
+
 watchEffect(() => {
   if (theme.value === 'dark') {
     document.documentElement.classList.add('dark');
@@ -193,11 +199,74 @@ watchEffect(() => {
   }
 });
 
-// --- Scroll to Hero ---
-function scrollToHero() {
-  const hero = document.getElementById('profil');
-  if (hero) {
-    hero.scrollIntoView({ behavior: 'smooth' });
-  }
+// --- Smooth Scroll Function ---
+function scrollToSection(sectionId) {
+  // Close menu first
+  open.value = false;
+
+  // Wait for menu animation to start, then scroll
+  setTimeout(() => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      // Calculate offset for fixed navbar
+      const navbarHeight = 80; // Adjust based on your navbar height
+      const elementPosition = section.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+
+      // Smooth scroll with custom easing
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+
+      // Alternative method with more control (optional)
+      // smoothScrollTo(offsetPosition, 1000);
+    }
+  }, 100);
 }
+
 </script>
+
+<style scoped>
+/* Slide fade animation for menu */
+.slide-fade-enter-active {
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.slide-fade-leave-active {
+  transition: all 0.2s cubic-bezier(0.755, 0.05, 0.855, 0.06);
+}
+
+.slide-fade-enter-from {
+  transform: translateY(-10px) scale(0.95);
+  opacity: 0;
+}
+
+.slide-fade-leave-to {
+  transform: translateY(-5px) scale(0.98);
+  opacity: 0;
+}
+
+/* Ensure smooth scrolling is enabled globally */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar (optional) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #06b6d4;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0891b2;
+}
+</style>

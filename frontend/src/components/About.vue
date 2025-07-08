@@ -12,7 +12,7 @@
               class="relative mr-1 mb-1 transition-all duration-300"
               :style="{
                 opacity: isVisible && i < visibleWords ? 1 : 0.2,
-                color: isVisible && i < visibleWords ? (isDark ? '' : '#0891b2') : ''
+                color: isVisible && i < visibleWords ? (isDark ? '#ffffff' : '#0891b2') : (isDark ? '#6b7280' : '#64748b')
               }"
             >
               <span v-if="word === '\n'"><br /></span>
@@ -20,6 +20,7 @@
             </span>
           </template>
         </p>
+
         <h2 class="text-2xl md:text-3xl font-bold text-cyan-700 dark:text-white mb-4 transition-colors duration-300">Experience</h2>
         <div class="relative overflow-x-hidden">
           <!-- Shadow kiri -->
@@ -36,8 +37,7 @@
               <div
                 v-for="(exp, i) in experiences"
                 :key="`${n}-${i}`"
-                class="about-card min-w-[320px] max-w-lg h-[140px] rounded-xl px-8 py-6 border border-cyan-300 dark:border-gray-700 shadow text-left flex flex-col justify-center hover:scale-[1.03] hover:border-cyan-500 dark:hover:border-cyan-400 transition-colors duration-300"
-                :class="isDark ? 'bg-gradient-to-br from-[#23272d] via-[#1e293b] to-[#23272d] text-white' : 'bg-gradient-to-br from-white via-cyan-50 to-cyan-100 text-cyan-900'"
+                class="about-card min-w-[320px] max-w-lg h-[140px] rounded-xl px-8 py-6 border border-cyan-300 dark:border-gray-700 shadow text-left flex flex-col justify-center hover:scale-[1.03] hover:border-cyan-500 dark:hover:border-cyan-400 transition-all duration-300"
               >
                 <h3 class="font-semibold text-cyan-800 dark:text-white mb-2 truncate transition-colors duration-300">{{ exp.title }}</h3>
                 <p class="text-cyan-700 dark:text-cyan-300 text-xs mb-1 transition-colors duration-300">{{ exp.period }}</p>
@@ -46,11 +46,11 @@
             </template>
           </div>
         </div>
+
         <h2 class="text-2xl md:text-3xl font-bold text-cyan-700 dark:text-white mb-4 transition-colors duration-300">Aktivitas Coding</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           <!-- Kartu Profil -->
-          <div class="about-card flex flex-col items-center justify-center p-6 border border-cyan-300 dark:border-gray-700 transition-colors duration-300"
-            :class="isDark ? 'bg-gradient-to-br from-[#23272d] via-[#1e293b] to-[#23272d] text-white' : 'bg-gradient-to-br from-white via-cyan-50 to-cyan-100 text-cyan-900'">
+          <div class="about-card flex flex-col items-center justify-center p-6 border border-cyan-300 dark:border-gray-700 transition-colors duration-300">
             <div class="relative mb-4">
               <img src="https://avatars.githubusercontent.com/u/55883148?v=4" alt="Anung Binartanto" class="w-24 h-24 rounded-full border-2 border-cyan-300 dark:border-gray-700 transition-colors duration-300" />
               <a
@@ -73,9 +73,9 @@
               <p class="text-gray-700 dark:text-gray-300 text-xs mt-2 transition-colors duration-300">Web Developer</p>
             </div>
           </div>
+
           <!-- Chart Github -->
-          <div class="about-card md:col-span-2 flex flex-col items-center justify-center p-6 border border-cyan-300 dark:border-gray-700 transition-colors duration-300"
-            :class="isDark ? 'bg-gradient-to-br from-[#23272d] via-[#1e293b] to-[#23272d] text-white' : 'bg-gradient-to-br from-white via-cyan-50 to-cyan-100 text-cyan-900'">
+          <div class="about-card md:col-span-2 flex flex-col items-center justify-center p-6 border border-cyan-300 dark:border-gray-700 transition-colors duration-300">
             <img
               src="https://ghchart.rshah.org/anungbinartantoo"
               alt="GitHub chart anungbinartantoo"
@@ -89,7 +89,7 @@
                 <span class="inline-block w-4 h-4 rounded bg-cyan-200 dark:bg-teal-200"></span>
                 <span class="inline-block w-4 h-4 rounded bg-cyan-300 dark:bg-teal-400"></span>
                 <span class="inline-block w-4 h-4 rounded bg-cyan-400 dark:bg-green-400"></span>
-                <span class="inline-block w-4 h-4 rounded bg-cyan-500 dark:bg-green-300"></span>
+                <span class="inline-block w-4 h-4 rounded bg-cyan-500 dark:bg-green-500"></span>
               </div>
               <span>More</span>
             </div>
@@ -105,9 +105,9 @@ defineOptions({ name: 'AboutSection' });
 import { ref, onMounted, onUnmounted, computed } from 'vue';
 
 const isPaused = ref(false);
-
 const aboutText = ref(null);
 const isVisible = ref(false);
+
 const rawText = `Hi there! 👋🏻 Saya Anung Binartanto, mahasiswa Teknik Informatika yang tinggal di Yogyakarta, Indonesia. Saya sangat antusias dalam pengembangan web, UI/UX, dan selalu ingin belajar hal baru di dunia teknologi.
 
 Saya suka membangun website yang interaktif dan mudah digunakan, serta senang berkolaborasi dalam tim. Selain itu,
@@ -119,7 +119,12 @@ const visibleWords = ref(0)
 let interval = null
 
 // Cek dark mode dari html class
-const isDark = computed(() => document.documentElement.classList.contains('dark'))
+const isDark = computed(() => {
+  if (typeof document !== 'undefined') {
+    return document.documentElement.classList.contains('dark')
+  }
+  return false
+})
 
 onMounted(() => {
   words.value = rawText.split(/(\s+|\n)/g)
@@ -135,7 +140,7 @@ onMounted(() => {
           } else {
             clearInterval(interval);
           }
-        }, 30);
+        }, 50);
       } else {
         isVisible.value = false;
         visibleWords.value = 0;
@@ -147,43 +152,42 @@ onMounted(() => {
   if (aboutText.value) {
     observer.observe(aboutText.value);
   }
-  // Clean up
-  onUnmounted(() => {
-    if (aboutText.value) observer.unobserve(aboutText.value);
-    if (interval) clearInterval(interval);
-  });
+});
+
+onUnmounted(() => {
+  if (interval) clearInterval(interval);
 });
 
 const experiences = [
   {
     title: 'Bootcamp Web Development at DICODING',
     period: 'Mar, 2020 – June, 2020 • 3 months',
-    desc: 'Bootcamp at DICODING to learn Web Development',
+    desc: 'Intensive bootcamp untuk mempelajari Web Development fundamentals',
   },
   {
-    title: 'Web Development ',
-    period: 'Jun, 2023 – Now • 1 year 4 months',
-    desc: 'Make a website for a small business '
+    title: 'Freelance Web Developer',
+    period: 'Jun, 2023 – Now • 1 year 7 months',
+    desc: 'Membuat website untuk bisnis kecil dan UMKM'
   },
   {
     title: 'UI/UX Designer',
-    period: 'Jan, 2023 – Now • 1 year 10 months',
-    desc: 'Designing user interfaces for mobile apps ('
+    period: 'Jan, 2023 – Now • 2 years',
+    desc: 'Mendesain user interface untuk aplikasi mobile dan web'
   },
   {
-    title: 'Saff event',
-    period: 'Mei, 2025 – jun, 2025 • 2 months',
-    desc: 'Organizing event in Yogyakarta'
+    title: 'Staff Event Organizer',
+    period: 'May, 2025 – Jun, 2025 • 2 months',
+    desc: 'Mengorganisir berbagai event di Yogyakarta'
   },
   {
-    title: 'Workshop AI at HMIF Amikom Yogyakarta',
-    period: 'Jun, 2025 – Jun, 2025 • 1 month',
-    desc: 'Workshop AI for students at HMIF Amikom Yogyakarta'
+    title: 'Workshop AI Trainer - HMIF Amikom',
+    period: 'Jun, 2025 • 1 month',
+    desc: 'Mengajar workshop AI untuk mahasiswa Teknik Informatika'
   },
   {
     title: 'Project Manager',
-    period: 'Dec, 2025 – Jan, 2025 • 2 months',
-    desc: 'Managing a small team for a startup project idea'
+    period: 'Dec, 2024 – Jan, 2025 • 2 months',
+    desc: 'Mengelola tim kecil untuk ide proyek startup'
   }
 ]
 </script>
@@ -191,15 +195,12 @@ const experiences = [
 <style scoped>
 .about-card {
   background: linear-gradient(135deg, #e0f2fe 60%, #bae6fd 100%);
-  border: 1.5px solid #7dd3fc; /* border cyan muda */
+  border: 1.5px solid #7dd3fc;
   box-shadow: 0 4px 32px 0 #0e749044;
   border-radius: 1.2rem;
-  transition:
-    box-shadow 0.3s,
-    border-color 0.3s,
-    background 0.3s,
-    border-radius 0.3s;
+  transition: all 0.3s ease;
 }
+
 .dark .about-card {
   background: linear-gradient(135deg, #23272d 60%, #1e293b 100%) !important;
   border: 1.5px solid #334155 !important;
@@ -209,19 +210,29 @@ const experiences = [
 .about-card:hover {
   border-color: #22d3ee;
   box-shadow: 0 0 32px 0 #22d3ee55;
+  transform: scale(1.02);
 }
+
 .dark .about-card:hover {
   border-color: #06b6d4;
   box-shadow: 0 0 32px 0 #06b6d455;
-  background: linear-gradient(135deg, #23272d 60%, #1e293b 100%) !important;
 }
 
 @keyframes seamless-x {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+
 .animate-seamless-x {
   animation: seamless-x 36s linear infinite;
   will-change: transform;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 </style>
