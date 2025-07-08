@@ -80,6 +80,7 @@
           <div class="px-5 py-4 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 flex-shrink-0">
             <form @submit.prevent="send" class="flex items-center gap-2">
               <input
+                ref="inputRef"
                 v-model="input"
                 type="text"
                 class="flex-1 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
@@ -125,6 +126,7 @@ import { ref, nextTick, onMounted, onUnmounted, watch } from 'vue';
 const props = defineProps({ footerRef: Object });
 const showChat = ref(false);
 const input = ref('');
+const inputRef = ref(null); // Tambahkan ref untuk input
 const messages = ref([
   { role: 'assistant', content: 'Halo! Saya asisten personal Anung. Ada yang bisa saya bantu tentang skills, projects, atau pengalaman Anung? 😊' }
 ]);
@@ -136,20 +138,18 @@ let observer;
 async function send() {
   if (!input.value.trim()) return;
 
-  // Add user message
   messages.value.push({ role: 'user', content: input.value });
 
   const userMessage = input.value;
   input.value = '';
   loading.value = true;
 
-  // Scroll to bottom after user message
   nextTick(() => {
     if (chatBody.value) chatBody.value.scrollTop = chatBody.value.scrollHeight;
+    if (inputRef.value) inputRef.value.focus(); // Fokuskan kembali ke input setelah kirim
   });
 
   try {
-    // Call Gemini AI API
     const response = await fetch('http://localhost:3001/api/assistant', {
       method: 'POST',
       headers: {
@@ -161,13 +161,11 @@ async function send() {
     const data = await response.json();
 
     if (data.success) {
-      // Add AI response
       messages.value.push({
         role: 'assistant',
         content: data.response
       });
     } else {
-      // Handle error
       messages.value.push({
         role: 'assistant',
         content: 'Maaf, terjadi kesalahan. Silakan coba lagi.'
@@ -182,10 +180,9 @@ async function send() {
     });
   } finally {
     loading.value = false;
-
-    // Scroll to bottom after AI response
     nextTick(() => {
       if (chatBody.value) chatBody.value.scrollTop = chatBody.value.scrollHeight;
+      if (inputRef.value) inputRef.value.focus(); // Fokuskan kembali ke input setelah AI membalas
     });
   }
 }
@@ -194,7 +191,18 @@ function clearChat() {
   messages.value = [
     { role: 'assistant', content: 'Halo! Saya asisten personal Anung. Ada yang bisa saya bantu tentang skills, projects, atau pengalaman Anung? 😊' }
   ];
+  nextTick(() => {
+    if (inputRef.value) inputRef.value.focus(); // Fokuskan ke input setelah clear chat
+  });
 }
+
+watch(showChat, (val) => {
+  if (val) {
+    nextTick(() => {
+      if (inputRef.value) inputRef.value.focus(); // Fokuskan ke input saat chat dibuka
+    });
+  }
+});
 
 onMounted(() => {
   watch(

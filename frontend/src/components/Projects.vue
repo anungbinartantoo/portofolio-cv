@@ -36,11 +36,11 @@ onMounted(async () => {
           <p class="text-cyan-800 dark:text-gray-300 mb-4 flex-1">{{ project.description }}</p>
           <div class="mb-4 flex flex-wrap gap-2">
             <span
-              v-for="t in project.tech"
+              v-for="t in project.tech.split(',')"
               :key="t"
               class="bg-cyan-200/60 dark:bg-cyan-900/40 text-cyan-900 dark:text-cyan-200 text-xs font-semibold px-3 py-1 rounded-full border border-cyan-300 dark:border-cyan-700/40 shadow transition-all duration-300 group-hover:bg-cyan-400/20 group-hover:text-cyan-900 dark:group-hover:text-cyan-100"
             >
-              {{ t }}
+              {{ t.trim() }}
             </span>
           </div>
           <a

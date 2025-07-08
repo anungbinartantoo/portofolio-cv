@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { Icon as IconifyIcon } from '@iconify/vue';
 defineOptions({ name: 'SkillsSection' });
 const skills = ref([]);
 onMounted(async () => {
@@ -24,9 +23,10 @@ onMounted(async () => {
         <div class="absolute inset-0 rounded-2xl pointer-events-none transition-all duration-300 group-hover:shadow-[0_0_32px_0_#22d3ee99]"></div>
         <!-- Icon Skill hanya efek hover -->
         <div class="flex justify-center mb-4">
-          <IconifyIcon
-            :icon="skill.icon"
-            class="text-5xl text-cyan-700 dark:text-cyan-300 drop-shadow-lg transition-transform duration-300 group-hover:scale-125 group-hover:-rotate-6"
+          <img
+            :src="skill.icon"
+            alt="icon"
+            class="w-12 h-12 mx-auto drop-shadow-lg transition-transform duration-300 group-hover:scale-125 group-hover:-rotate-6"
           />
         </div>
         <h3 class="text-lg font-bold text-cyan-900 dark:text-white mb-1 tracking-wide group-hover:text-cyan-700 dark:group-hover:text-cyan-300 transition-colors duration-300">{{ skill.name }}</h3>
