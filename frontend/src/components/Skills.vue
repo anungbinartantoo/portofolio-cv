@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue';
 defineOptions({ name: 'SkillsSection' });
 const skills = ref([]);
 onMounted(async () => {
-  const res = await fetch('http://localhost:3001/api/skills');
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/skills`);
   skills.value = await res.json();
 });
 </script>

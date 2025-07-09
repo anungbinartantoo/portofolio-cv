@@ -174,7 +174,7 @@ const experiences = ref([]);
 
 async function fetchExperiences() {
   try {
-    const res = await fetch('http://localhost:3001/api/experiences');
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/experiences`);
     experiences.value = await res.json();
   } catch (err) {
     console.error('Gagal mengambil data experiences:', err);

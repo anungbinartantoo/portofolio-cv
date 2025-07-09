@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue';
 defineOptions({ name: 'ProjectsSection' });
 const projects = ref([]);
 onMounted(async () => {
-  const res = await fetch('http://localhost:3001/api/projects');
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects`);
   projects.value = await res.json();
 });
 </script>
