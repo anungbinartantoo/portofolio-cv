@@ -43,7 +43,9 @@
               >
                 <h3 class="font-semibold text-cyan-800 dark:text-white mb-2 truncate transition-colors duration-300">{{ exp.title }}</h3>
                 <p class="text-cyan-700 dark:text-cyan-300 text-xs mb-1 transition-colors duration-300">{{ exp.period }}</p>
-                <p class="text-gray-700 dark:text-gray-300 text-sm line-clamp-2 transition-colors duration-300">{{ exp.desc }}</p>
+                <p class="text-gray-700 dark:text-gray-300 text-sm line-clamp-2 transition-colors duration-300">
+                  {{ exp.description }}
+                </p>
               </div>
             </template>
           </div>
@@ -116,7 +118,6 @@ Saya suka membangun website yang interaktif dan mudah digunakan, serta senang be
 
 Saat ini saya sedang fokus memperdalam keahlian di bidang Web Development dan terbuka untuk peluang kolaborasi maupun project baru. Jangan ragu untuk menghubungi saya! 🚀`
 
-// Split rawText into words, preserving line breaks as '\n'
 const words = ref(
   rawText
     .split(/(\s+|\n)/)
@@ -160,6 +161,8 @@ onMounted(() => {
   if (aboutText.value) {
     observer2.observe(aboutText.value);
   }
+
+  fetchExperiences();
 });
 
 onUnmounted(() => {
@@ -167,38 +170,16 @@ onUnmounted(() => {
   observer.disconnect()
 });
 
-const experiences = [
-  {
-    title: 'Bootcamp Web Development at DICODING',
-    period: 'Mar, 2020 – June, 2020 • 3 months',
-    desc: 'Intensive bootcamp untuk mempelajari Web Development fundamentals',
-  },
-  {
-    title: 'Freelance Web Developer',
-    period: 'Jun, 2023 – Now • 1 year 7 months',
-    desc: 'Membuat website untuk bisnis kecil dan UMKM'
-  },
-  {
-    title: 'UI/UX Designer',
-    period: 'Jan, 2023 – Now • 2 years',
-    desc: 'Mendesain user interface untuk aplikasi mobile dan web'
-  },
-  {
-    title: 'Staff Event Organizer',
-    period: 'May, 2025 – Jun, 2025 • 2 months',
-    desc: 'Mengorganisir berbagai event di Yogyakarta'
-  },
-  {
-    title: 'Workshop AI Trainer - HMIF Amikom',
-    period: 'Jun, 2025 • 1 month',
-    desc: 'Mengajar workshop AI untuk mahasiswa Teknik Informatika'
-  },
-  {
-    title: 'Project Manager',
-    period: 'Dec, 2024 – Jan, 2025 • 2 months',
-    desc: 'Mengelola tim kecil untuk ide proyek startup'
+const experiences = ref([]);
+
+async function fetchExperiences() {
+  try {
+    const res = await fetch('http://localhost:3001/api/experiences');
+    experiences.value = await res.json();
+  } catch (err) {
+    console.error('Gagal mengambil data experiences:', err);
   }
-]
+}
 </script>
 
 <style scoped>
