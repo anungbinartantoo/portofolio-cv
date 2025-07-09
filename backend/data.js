@@ -62,7 +62,7 @@ module.exports = {
       desc: 'Designing user interfaces for mobile apps'
     },
     {
-      title: 'Saff event',
+      title: 'Staff event Langit Biru',
       period: 'Mei, 2025 – jun, 2025 • 2 months',
       desc: 'Organizing event in Yogyakarta'
     },
@@ -72,7 +72,7 @@ module.exports = {
       desc: 'Workshop AI for students at HMIF Amikom Yogyakarta'
     },
     {
-      title: 'Project Manager',
+      title: 'Project Manager at Startup Project',
       period: 'Dec, 2025 – Jan, 2025 • 2 months',
       desc: 'Managing a small team for a startup project idea'
     }
