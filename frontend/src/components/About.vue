@@ -5,14 +5,16 @@
         <h1 class="text-5xl md:text-6xl font-extrabold text-cyan-800 dark:text-white mb-8 text-left transition-colors duration-300">About me</h1>
         <p
           ref="aboutText"
-          class="flex flex-wrap text-lg md:text-xl leading-relaxed mb-10 text-left text-cyan-900 dark:text-gray-300 transition-colors duration-300"
+          class="typewriter-white flex flex-wrap text-lg md:text-xl leading-relaxed mb-10 text-left transition-colors duration-300"
         >
           <template v-for="(word, i) in words" :key="i">
             <span
               class="relative mr-1 mb-1 transition-all duration-300"
               :style="{
                 opacity: isVisible && i < visibleWords ? 1 : 0.2,
-                color: isVisible && i < visibleWords ? (isDark ? '#ffffff' : '#0891b2') : (isDark ? '#6b7280' : '#64748b')
+                color: isVisible && i < visibleWords
+                  ? (isDark ? '#ffffff' : '#0891b2') // dark: putih, light: biru
+                  : (isDark ? '#6b7280' : '#64748b')
               }"
             >
               <span v-if="word === '\n'"><br /></span>
@@ -102,7 +104,7 @@
 
 <script setup>
 defineOptions({ name: 'AboutSection' });
-import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 
 const isPaused = ref(false);
 const aboutText = ref(null);
@@ -114,21 +116,27 @@ Saya suka membangun website yang interaktif dan mudah digunakan, serta senang be
 
 Saat ini saya sedang fokus memperdalam keahlian di bidang Web Development dan terbuka untuk peluang kolaborasi maupun project baru. Jangan ragu untuk menghubungi saya! 🚀`
 
-const words = ref([])
+// Split rawText into words, preserving line breaks as '\n'
+const words = ref(
+  rawText
+    .split(/(\s+|\n)/)
+    .map(w => (w === '\n' ? '\n' : w.trim()))
+    .filter(w => w.length > 0 || w === '\n')
+)
 const visibleWords = ref(0)
 let interval = null
 
-// Cek dark mode dari html class
-const isDark = computed(() => {
-  if (typeof document !== 'undefined') {
-    return document.documentElement.classList.contains('dark')
-  }
-  return false
-})
+const isDark = ref(document.documentElement.classList.contains('dark'))
+
+let observer = null;
 
 onMounted(() => {
-  words.value = rawText.split(/(\s+|\n)/g)
-  const observer = new window.IntersectionObserver(
+  observer = new MutationObserver(() => {
+    isDark.value = document.documentElement.classList.contains('dark')
+  })
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+
+  const observer2 = new window.IntersectionObserver(
     ([entry]) => {
       if (entry.isIntersecting) {
         isVisible.value = true;
@@ -150,12 +158,13 @@ onMounted(() => {
     { threshold: 0.2 }
   );
   if (aboutText.value) {
-    observer.observe(aboutText.value);
+    observer2.observe(aboutText.value);
   }
 });
 
 onUnmounted(() => {
   if (interval) clearInterval(interval);
+  observer.disconnect()
 });
 
 const experiences = [
