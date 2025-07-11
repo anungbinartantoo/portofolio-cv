@@ -26,12 +26,7 @@ try {
 
 // Endpoint untuk education
 app.get('/api/education', async (req, res) => {
-  try {
-    const education = await educationService.getAllEducation();
-    res.json(education);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  res.json([{ institution: "Test", major: "Test", period: "2020-2024" }]);
 });
 
 // Endpoint untuk skills
