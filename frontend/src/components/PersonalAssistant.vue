@@ -150,7 +150,7 @@ async function send() {
   });
 
   try {
-    const response = await fetch('http://localhost:3001/api/assistant', {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/assistant`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
