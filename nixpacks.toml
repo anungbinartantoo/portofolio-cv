@@ -1,0 +1,14 @@
+[phases.setup]
+nixpacksVersion = "1.11.0"
+
+[phases.install]
+cwd = "backend"
+cmds = ["npm install"]
+
+[phases.build]
+cwd = "backend"
+cmds = []
+
+[start]
+cwd = "backend"
+cmd = "npm start"
