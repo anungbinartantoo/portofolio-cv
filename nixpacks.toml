@@ -1,14 +1,8 @@
 [phases.setup]
-nixpacksVersion = "1.11.0"
+nixPkgs = ["nodejs_20"]
 
 [phases.install]
-cwd = "backend"
-cmds = ["npm install"]
-
-[phases.build]
-cwd = "backend"
-cmds = []
+cmds = ["npm ci --prefix backend"]
 
 [start]
-cwd = "backend"
-cmd = "npm start"
+cmd = "npm start --prefix backend"
